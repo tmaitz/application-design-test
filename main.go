@@ -39,7 +39,7 @@ func main() {
 func addRoute(serveMux *http.ServeMux, path string, methodHandlerMap map[string]RequestHandler) {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		if handle, ok := methodHandlerMap[r.Method]; !ok {
-			http.Error(w, "Method Not Allowed", 405)
+			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 			return
 		} else {
 			status, responseBody, err := handle(r)
