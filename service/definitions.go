@@ -8,19 +8,12 @@ const (
 	lux      = "lux"
 )
 
-var AvailableRoomTypes = map[string]bool{
-	economy:  true,
-	standard: true,
-	lux:      true,
-}
-
 type OrderServiceType struct {
 	ActualOrders   []Order
 	AvailableRooms map[string]bool
 }
 
-var OrderService OrderServiceType
-
+// OrderDtoRequest comes from http request
 type OrderDtoRequest struct {
 	Email string
 	Room  string
@@ -28,6 +21,8 @@ type OrderDtoRequest struct {
 	To    string
 }
 
+// OrderDto contains prepared data which comes from client, and should be visible for client
+// TODO: maybe, it's good to use Input and Output types
 type OrderDto struct {
 	Email string
 	Room  string
@@ -35,23 +30,17 @@ type OrderDto struct {
 	To    time.Time
 }
 
+// Order internal representation
 type Order struct {
-	Room      string
 	UserEmail string
+	Room      string
 	From      time.Time
 	To        time.Time
 }
 
-var EmptyOrderStub = Order{}
-
-func Init() {
-	// here we can include logic of predefining of ActualOrders, AvailableRooms and etc. from DB or other services
-	OrderService = OrderServiceType{
-		[]Order{},
-		map[string]bool{
-			economy:  true,
-			standard: true,
-			lux:      true,
-		},
-	}
+// AvailableRoomTypes contains all available room types -> needs for room param validation
+var AvailableRoomTypes = map[string]bool{
+	economy:  true,
+	standard: true,
+	lux:      true,
 }

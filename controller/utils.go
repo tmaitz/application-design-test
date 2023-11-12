@@ -5,15 +5,6 @@ import (
 	"time"
 )
 
-type UrlParamValidationError struct {
-	paramName string
-	message   string
-}
-
-func (e *UrlParamValidationError) Error() string {
-	return "Param '" + e.paramName + "' is not valid, because: " + e.message
-}
-
 func getValidValue(value string, key string) (string, error) {
 	if value == "" {
 		return "", &UrlParamValidationError{key, "value must not be empty"}

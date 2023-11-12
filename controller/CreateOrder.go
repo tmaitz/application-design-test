@@ -30,12 +30,19 @@ func CreateOrder(r *http.Request) (int, any, error) {
 	orderDto := service.OrderDto{email, room, from, to}
 
 	// call service logic
-	order, err := service.OrderService.CreateOrder(orderDto)
+	createdOrder, err := service.OrderService.CreateOrder(orderDto)
 	// handle service's error
 	if err != nil {
 		// TODO: status code depends on service error type???
 		return http.StatusBadRequest, nil, err
 	}
 
-	return http.StatusCreated, order, nil
+	createdOrderDto := service.OrderDto{
+		createdOrder.UserEmail,
+		createdOrder.Room,
+		createdOrder.From,
+		createdOrder.To,
+	}
+
+	return http.StatusCreated, createdOrderDto, nil
 }

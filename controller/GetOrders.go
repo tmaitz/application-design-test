@@ -14,12 +14,23 @@ func GetOrders(r *http.Request) (int, any, error) {
 	}
 
 	// call service logic
-	orders, err := service.OrderService.GetOrders(email)
+	foundedOrders, err := service.OrderService.GetOrders(email)
 	// handle service's error
 	if err != nil {
 		return http.StatusBadRequest, nil, err
 	}
 
+	foundedOrderDtos := []service.OrderDto{}
+	for _, item := range foundedOrders {
+		foundedOrderDto := service.OrderDto{
+			item.UserEmail,
+			item.Room,
+			item.From,
+			item.To,
+		}
+		foundedOrderDtos = append(foundedOrderDtos, foundedOrderDto)
+	}
+
 	// return result
-	return http.StatusOK, orders, nil
+	return http.StatusOK, foundedOrderDtos, nil
 }

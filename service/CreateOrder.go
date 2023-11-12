@@ -10,8 +10,8 @@ func (OrderServiceType) CreateOrder(orderDto OrderDto) (Order, error) {
 	}
 
 	order := Order{
-		orderDto.Room,
 		orderDto.Email,
+		orderDto.Room,
 		orderDto.From,
 		orderDto.To,
 	}
