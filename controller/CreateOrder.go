@@ -37,12 +37,5 @@ func CreateOrder(r *http.Request) (int, any, error) {
 		return http.StatusBadRequest, nil, err
 	}
 
-	createdOrderDto := service.OrderDto{
-		createdOrder.UserEmail,
-		createdOrder.Room,
-		createdOrder.From,
-		createdOrder.To,
-	}
-
-	return http.StatusCreated, createdOrderDto, nil
+	return http.StatusCreated, service.ToDto(createdOrder), nil
 }

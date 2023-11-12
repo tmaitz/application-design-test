@@ -9,8 +9,8 @@ const (
 )
 
 type OrderServiceType struct {
-	ActualOrders   []Order
-	AvailableRooms map[string]bool
+	actualOrders   []Order
+	availableRooms map[string]bool
 }
 
 // OrderDtoRequest comes from http request
@@ -32,10 +32,10 @@ type OrderDto struct {
 
 // Order internal representation
 type Order struct {
-	UserEmail string
-	Room      string
-	From      time.Time
-	To        time.Time
+	userEmail string
+	room      string
+	from      time.Time
+	to        time.Time
 }
 
 // AvailableRoomTypes contains all available room types -> needs for room param validation

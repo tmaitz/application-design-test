@@ -9,18 +9,13 @@ func (OrderServiceType) CreateOrder(orderDto OrderDto) (Order, error) {
 		return EmptyOrderStub, errors.New("there is no available room")
 	}
 
-	order := Order{
-		orderDto.Email,
-		orderDto.Room,
-		orderDto.From,
-		orderDto.To,
-	}
+	order := ToEntity(orderDto)
 
-	OrderService.ActualOrders = append(OrderService.ActualOrders, order)
+	OrderService.actualOrders = append(OrderService.actualOrders, order)
 
 	return order, nil
 }
 
 func isRoomAvailable(orderDto OrderDto) bool {
-	return OrderService.AvailableRooms[orderDto.Room]
+	return OrderService.availableRooms[orderDto.Room]
 }

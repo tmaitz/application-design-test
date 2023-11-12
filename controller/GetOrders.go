@@ -20,17 +20,6 @@ func GetOrders(r *http.Request) (int, any, error) {
 		return http.StatusBadRequest, nil, err
 	}
 
-	foundedOrderDtos := []service.OrderDto{}
-	for _, item := range foundedOrders {
-		foundedOrderDto := service.OrderDto{
-			item.UserEmail,
-			item.Room,
-			item.From,
-			item.To,
-		}
-		foundedOrderDtos = append(foundedOrderDtos, foundedOrderDto)
-	}
-
 	// return result
-	return http.StatusOK, foundedOrderDtos, nil
+	return http.StatusOK, service.ToDtos(foundedOrders), nil
 }
